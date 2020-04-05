@@ -50,6 +50,7 @@ const manager = () => {
                     else {
                         return "ID must contain numbers only"
                     }
+                }
 
             },
             {
@@ -59,7 +60,7 @@ const manager = () => {
 
                 //function to ensure email is entered correctly
                 validate: function (value) {
-                    var mail = value.match(/[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]/);
+                    var mail = value.match(/[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
                     //conditional given depending if standards met
                     if (mail) {
                         return true
@@ -88,25 +89,49 @@ const manager = () => {
                 }
 
             },
-        ]),
+        ])
+        .then(answers =>{
+            //places users answers in a variable
+            var userAnswer = new Manager(answers.name, answers.id, answers.email, answers.officenumber);
+            //places into our empty array 
+            teamRender.push(userAnswer);
+            //run the function newMember
+            newMember();
+        })
+        .catch(error => {
+            if (error.isTtyError) {
+                //  Error with prompt
+              } else {
+                // Something else when wrong
+              }
+        })
 }
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an 
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work!```
+    const newMember = () =>{
+        //where prompts are placed for the new member
+        inquirer
+        .prompt([
+            {
+               type: "list",
+               message: "Would you like to add a new member?",
+               choices: ["Intern", "Engineer", "None"],
+               name: "newmember",
+            }
+        ])
+        .then(answers =>{
+            //conditional if intern is picked
+            if (answers.newmember === "Intern") {
+                //function intern will be started
+                intern();
+            }
+            //conditional if intern is picked
+            if (answers.newmember === "Engineer") {
+                //function engineer will be started
+                engineer();
+            }
+            //conditional if intern is picked
+            if (answers.newmember === "None") {
+                //function fullTeam will be started
+                fullTeam();
+            }
+        })
+    }
