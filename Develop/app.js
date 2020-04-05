@@ -213,4 +213,82 @@ const manager = () => {
                 //calls the function newmember
                 newMember();
             })
+            .catch(error => {
+                if (error.isTtyError) {
+                    //  Error with prompt
+                  } else {
+                    // Something else when wrong
+                  }
+            });
+        }
+        const engineer = () =>{
+            //where prompts are placed for engineer
+            inquirer
+            .prompt([
+                {
+                    type= "input",
+                    message: "what is your Engineer's name?",
+                    name: "name",
+
+                    //function to ensure only letters are being used
+                    validate: function(value){
+                        var letters = value.match(/[a-z]/);
+                        //conditionals if requirements are met
+                        if (letters) {
+                            return  true
+                        }
+                        else {
+                            return "Name must only contain letters"
+                        }
+                    }
+                },
+                {
+                    type= "input",
+                    message: "what is your engineer's ID?",
+                    name: "id",
+
+                    //function to ensure only numbers are being used
+                    validate: function(value){
+                        var numbers = value.match(/[0-9]/);
+                        //conditionals if requirements are met
+                        if (numbers) {
+                            return  true
+                        }
+                        else {
+                            return "ID must only contain numbers"
+                        }
+                    }
+                },
+                {
+                    type= "input",
+                    message: "what is your engineer's email?",
+                    name: "email",
+
+                    //function to ensure only letters are being used
+                    validate: function(value){
+                        var emailInput = value.match(/[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+                        //conditionals if requirements are met
+                        if (emailInput) {
+                            return  true
+                        }
+                        else {
+                            return "Email not entered correctly"
+                        }
+                    }
+                },
+                {
+                    type= "input",
+                    message: "What is your engineer's Github?",
+                    name: "github"
+                }
+            ])
+            .then(answers =>{
+                //place answers into a variable
+                var userEngineer = new Engineer(answers.name, answers.email, answers.id, answers.github);
+                //place into empty array
+                teamRender.push(userEngineer);
+                //calls the function newmember
+                newMember();
+            })
+
         }
