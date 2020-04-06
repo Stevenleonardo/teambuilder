@@ -14,7 +14,7 @@ const teamRender = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-const manager = () => {
+const manager =()=>{
     //where prompts are placed
     inquirer
         .prompt([
@@ -24,7 +24,7 @@ const manager = () => {
                 name: "name",
 
                 //function to ensure only letters are being used
-                validate: function (value) {
+                validate: function(value){
                     var letters = value.match(/[a-z]/);
                     //conditional given depending if standards met
                     if (letters) {
@@ -41,7 +41,7 @@ const manager = () => {
                 name: "id",
 
                 //function to ensure only numbers are being used
-                validate: function (value) {
+                validate: function(value) {
                     var numbers = value.match(/[0-9]/);
                     //conditional given depending if standards met
                     if (numbers) {
@@ -57,10 +57,8 @@ const manager = () => {
                 type: "input",
                 message: "What is your email address?",
                 name: "email",
-
-                //function to ensure email is entered correctly
-                validate: function (value) {
-                    var mail = value.match(/[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+                validate: function(value){
+                    var mail = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
                     //conditional given depending if standards met
                     if (mail) {
                         return true
@@ -69,15 +67,14 @@ const manager = () => {
                         return "Email not entered correctly"
                     }
                 }
-
             },
             {
                 type: "input",
-                message: "What is your ID?",
+                message: "What is your officenumber?",
                 name: "officenumber",
 
                 //function to ensure only numbers are being used
-                validate: function (value) {
+                validate: function(value){
                     var officeNumbers = value.match(/[0-9]/);
                     //conditional given depending if standards met
                     if (officeNumbers) {
@@ -90,7 +87,7 @@ const manager = () => {
 
             },
         ])
-        .then(answers => {
+        .then(answers=>{
             //places users answers in a variable
             var userAnswer = new Manager(answers.name, answers.id, answers.email, answers.officenumber);
             //places into our empty array 
@@ -98,15 +95,16 @@ const manager = () => {
             //run the function newMember
             newMember();
         })
-        .catch(error => {
+        .catch(error=>{
             if (error.isTtyError) {
                 //  Error with prompt
             } else {
                 // Something else when wrong
             }
-        })
+        });
+    
 }
-const newMember = () => {
+const newMember=()=>{
     //where prompts are placed for the new member
     inquirer
         .prompt([
@@ -117,7 +115,7 @@ const newMember = () => {
                 name: "newmember",
             }
         ])
-        .then(answers => {
+        .then(answers=>{
             //conditional if intern is picked
             if (answers.newmember === "Intern") {
                 //function intern will be started
@@ -133,9 +131,8 @@ const newMember = () => {
                 //function fullTeam will be started
                 fullTeam();
             }
-
         })
-        .catch(error => {
+        .catch(error=>{
             if (error.isTtyError) {
                 //  Error with prompt
             } else {
@@ -143,12 +140,12 @@ const newMember = () => {
             }
         });
 }
-const intern = () => {
+const intern=()=>{
     //where prompts are placed for intern
     inquirer
         .prompt([
             {
-                type= "input",
+                type: "input",
                 message: "what is your intern's name?",
                 name: "name",
 
@@ -165,12 +162,12 @@ const intern = () => {
                 }
             },
             {
-                type= "input",
+                type: "input",
                 message: "what is your intern's email?",
                 name: "email",
 
                 //function to ensure proper email entered
-                validate: function (value) {
+                validate: function(value){
                     var emailInput = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
                     //conditionals if requirements are met
                     if (emailInput) {
@@ -182,12 +179,12 @@ const intern = () => {
                 }
             },
             {
-                type= "input",
+                type: "input",
                 message: "what is your intern's ID?",
                 name: "id",
 
                 //function to ensure only numbers are being used
-                validate: function (value) {
+                validate: function(value){
                     var numbers = value.match(/[0-9]/);
                     //conditionals if requirements are met
                     if (numbers) {
@@ -199,13 +196,13 @@ const intern = () => {
                 }
             },
             {
-                type= "input",
+                type: "input",
                 message: "what is your intern's school?",
                 name: "school",
 
             },
         ])
-        .then(answers => {
+        .then(answers=>{
             //place answers into a variable
             var userIntern = new Intern(answers.name, answers.email, answers.id, answers.school);
             //place into empty array
@@ -213,7 +210,7 @@ const intern = () => {
             //calls the function newmember
             newMember();
         })
-        .catch(error => {
+        .catch(error=>{
             if (error.isTtyError) {
                 //  Error with prompt
             } else {
@@ -221,12 +218,12 @@ const intern = () => {
             }
         });
 }
-const engineer = () => {
+const engineer=()=>{
     //where prompts are placed for engineer
     inquirer
         .prompt([
             {
-                type= "input",
+                type: "input",
                 message: "what is your Engineer's name?",
                 name: "name",
 
@@ -243,12 +240,12 @@ const engineer = () => {
                 }
             },
             {
-                type= "input",
+                type: "input",
                 message: "what is your engineer's ID?",
                 name: "id",
 
                 //function to ensure only numbers are being used
-                validate: function (value) {
+                validate: function(value){
                     var numbers = value.match(/[0-9]/);
                     //conditionals if requirements are met
                     if (numbers) {
@@ -260,13 +257,13 @@ const engineer = () => {
                 }
             },
             {
-                type= "input",
+                type: "input",
                 message: "what is your engineer's email?",
                 name: "email",
 
                 //function to ensure only letters are being used
-                validate: function (value) {
-                    var emailInput = value.match(/[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+                validate: function(value){
+                    var emailInput = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
                     //conditionals if requirements are met
                     if (emailInput) {
                         return true
@@ -277,12 +274,12 @@ const engineer = () => {
                 }
             },
             {
-                type= "input",
+                type: "input",
                 message: "What is your engineer's Github?",
                 name: "github"
             }
         ])
-        .then(answers => {
+        .then(answers=>{
             //place answers into a variable
             var userEngineer = new Engineer(answers.name, answers.email, answers.id, answers.github);
             //place into empty array
@@ -290,16 +287,15 @@ const engineer = () => {
             //calls the function newmember
             newMember();
         })
-        .catch(error => {
-            if (error.isTtyError) {
+        .catch(error=>{
+            if (error.isTtyError){
                 //  Error with prompt
             } else {
                 // Something else when wrong
             }
         });
-
 }
-const fullTeam = () => {
+const fullTeam=()=>{
     //function that will create and write the everything into a file
     fs.writeFile(outputPath, render(teamRender), err => {
         if (err) {
